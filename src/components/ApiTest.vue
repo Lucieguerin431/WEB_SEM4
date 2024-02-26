@@ -4,10 +4,17 @@ defineProps({
 })
 </script>
 
+
 <template>
-    <div>
-        coucou je suis lapi de lulu
-    </div>
+    <header>
+        <h1>EPICFOCUS</h1>
+        <div class="search-container">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search">SEARCH</i></button>
+        </div>
+    </header>
+        <div>
+        </div>
 </template>
 
 
