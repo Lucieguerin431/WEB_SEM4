@@ -19,6 +19,9 @@ defineProps({
 
 
 <style>
+header{
+    background-color:#FFF2EA;
+}
 </style>
 
 <script>

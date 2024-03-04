@@ -8,18 +8,42 @@ defineProps({
 </script>
 
 <template>
-  <!-- <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
-  </div> -->
-<div class="image-container">
-    <img src="https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Photo by cottonbro from Pexels" />
-</div>
+  <div class="photo-gallery">
+    <div v-for="(photo, index) in photos" :key="index" class="photo-card">
+      <img :src="photo.src.medium" :alt="photo.photographer">
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'PhotoGallery',
+  data() {
+    return {
+      photos: []
+    };
+  },
+  mounted() {
+    // Appel à l'API de Pexels pour récupérer les photos de film
+    this.fetchFilmPhotos();
+  },
+  methods: {
+    async fetchFilmPhotos() {
+      try {
+        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=10', {
+          headers: {
+            'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
+          }
+        });
+        const data = await response.json();
+        this.photos = data.photos;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des photos de 35mm:', error);
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 h1 {
@@ -27,6 +51,10 @@ h1 {
   font-size: 2.6rem;
   position: relative;
   top: -10px;
+}
+
+header{
+    background-color:#FFF2EA;
 }
 
 h3 {

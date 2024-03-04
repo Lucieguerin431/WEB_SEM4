@@ -12,11 +12,15 @@ import ApiTest from './components/ApiTest.vue'
       <PhotoCard/>
     </div>
   </header>
+  <body>
+    
+  </body>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
+  background-color: #FFF2EA;
 }
 
 .logo {
@@ -41,4 +45,6 @@ header {
     flex-wrap: wrap;
   }
 }
+
+
 </style>
