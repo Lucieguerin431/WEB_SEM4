@@ -30,7 +30,7 @@ export default {
   methods: {
     async fetchFilmPhotos() {
       try {
-        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=10', {
+        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=50', {
           headers: {
             'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
           }
@@ -53,23 +53,17 @@ h1 {
   top: -10px;
 }
 
-header{
-    background-color:#FFF2EA;
-}
+
 
 h3 {
   font-size: 1.2rem;
 }
 
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
 
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 </style>

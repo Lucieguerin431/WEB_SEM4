@@ -1,26 +1,33 @@
 <script setup>
 import PhotoCard from './components/PhotoCard.vue'
-import ApiTest from './components/ApiTest.vue'
+import ApiTest from './components/Header.vue'
 </script>
 
 <template>
   <header>
     <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
-
-    <div class="wrapper">
-      <ApiTest/>
-      <PhotoCard/>
-    </div>
+    <ApiTest/>
   </header>
   <body>
-    
+    <div class="wrapper">
+      <PhotoCard/>
+    </div>
   </body>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
-  background-color: #FFF2EA;
+  background: #FFF2EA;
+  padding: 60px;
+  text-align: center;
+  color: black;
+  font-size: 30px;
+}
+
+.wraper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .logo {
@@ -28,23 +35,8 @@ header {
   margin: 0 auto 2rem;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+body {
+  background-color: #FFF2EA;
 }
 
-
-</style>
+</style>./components/Header.vue
