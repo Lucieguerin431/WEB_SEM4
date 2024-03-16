@@ -8,6 +8,7 @@ defineProps({
 </script>
 
 <template>
+  
   <div class="photo-gallery">
     <div v-for="(photo, index) in photos" :key="index" class="photo-card">
       <img :src="photo.src.medium" :alt="photo.photographer">
@@ -30,7 +31,7 @@ export default {
   methods: {
     async fetchFilmPhotos() {
       try {
-        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=50', {
+        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=80', {
           headers: {
             'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
           }
@@ -53,7 +54,9 @@ h1 {
   top: -10px;
 }
 
-
+img {
+     border : 3px solid #000000;
+}
 
 h3 {
   font-size: 1.2rem;

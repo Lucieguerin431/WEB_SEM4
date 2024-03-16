@@ -1,26 +1,25 @@
 <script setup>
 import PhotoCard from './components/PhotoCard.vue'
-import ApiTest from './components/Header.vue'
+import Search from './components/Search.vue';
 </script>
 
 <template>
   <header>
     <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
-    <ApiTest/>
+    <Search :photos="photos"/>
   </header>
   <body>
     <div class="wrapper">
-      <PhotoCard/>
     </div>
   </body>
 </template>
 
 <style scoped>
 header {
-  background: #FFF2EA;
+  background: #fff6f1;
   padding: 60px;
   text-align: center;
-  color: black;
+  color: black;    
   font-size: 30px;
 }
 
@@ -39,4 +38,19 @@ body {
   background-color: #FFF2EA;
 }
 
-</style>./components/Header.vue
+
+</style>
+
+<script>
+import Search from './components/Search.vue';
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      photos: [] // Ajout d'une liste d'images pour passer à Search
+    };
+  },
+  // Vous pouvez continuer à appeler fetchFilmPhotos() ici si vous le souhaitez
+}
+</script>

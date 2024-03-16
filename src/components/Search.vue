@@ -6,15 +6,18 @@ defineProps({
 
 
 <template>
-    <div>
-        <h1>EPICFOCUS</h1>
+<div>
+    <h1>EPICFOCUS</h1>
+    <div class="search">
+      <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Rechercher des photos...">
+      <button class="searchButton" @click="searchPhotos">Rechercher</button>
     </div>
     <div class="photo-gallery">
-    <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Rechercher des photos...">
-    <div v-if="loading" class="loading">Chargement en cours...</div>
-    <div v-else>
-      <div v-for="(photo, index) in photos" :key="index" class="photo-card">
-        <img :src="photo.src.medium" :alt="photo.photographer">
+      <div v-if="loading" class="loading">Chargement en cours...</div>
+      <div v-else>
+        <div v-for="(photo, index) in photos" :key="index" class="photo-card">
+          <img :src="photo.src.medium" :alt="photo.photographer">
+        </div>
       </div>
     </div>
   </div>
@@ -56,20 +59,18 @@ header{
 
 <script>
 export default {
-  name: 'PhotoGallery',
+  name: 'Search',
   data() {
     return {
       photos: [],
-      searchKeyword: ''
+      searchKeyword: '',
+      loading: false // Ajout d'une propriété pour afficher le chargement
     };
-  },
-  mounted() {
-    // Afficher les photos de base au chargement de la page
-    this.searchPhotos();
   },
   methods: {
     async searchPhotos() {
       try {
+        this.loading = true; // Démarre le chargement
         const response = await fetch(`https://api.pexels.com/v1/search?query=35mm ${this.searchKeyword}`, {
           headers: {
             'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
@@ -79,6 +80,8 @@ export default {
         this.photos = data.photos;
       } catch (error) {
         console.error('Erreur lors de la recherche des photos:', error);
+      } finally {
+        this.loading = false; // Arrête le chargement, que ce soit un succès ou une erreur
       }
     }
   }
