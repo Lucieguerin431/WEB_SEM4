@@ -17,16 +17,9 @@ import Search from './components/Search.vue';
 <style scoped>
 header {
   background: #fff6f1;
-  padding: 60px;
   text-align: center;
   color: black;    
   font-size: 30px;
-}
-
-.wraper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .logo {
@@ -35,7 +28,7 @@ header {
 }
 
 body {
-  background-color: #FFF2EA;
+  background-color: #fff6f1;
 }
 
 
@@ -48,9 +41,8 @@ export default {
   name: 'App',
   data() {
     return {
-      photos: [] // Ajout d'une liste d'images pour passer à Search
+      photos: [] 
     };
   },
-  // Vous pouvez continuer à appeler fetchFilmPhotos() ici si vous le souhaitez
 }
 </script>
