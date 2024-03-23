@@ -11,6 +11,9 @@ import Search from './components/Search.vue';
   <body>
     <div class="wrapper">
     </div>
+    <div>
+    <router-view></router-view>
+  </div>
   </body>
 </template>
 

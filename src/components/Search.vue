@@ -9,7 +9,6 @@ defineProps({
 <div>
   <header>
     <h1>EPICFOCUS</h1>
-    <div class="rectangle"></div>
     <div class="search">
       <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Search for vintage images">
     </div>
@@ -52,12 +51,8 @@ body{
     background-color:#fff6f1;
 }
 
-.rectangle {
-  width: 70%;
-  height: 3rem; 
-  background-color: #000000; 
-  border: 2px solid #000;
-  margin-left: 20%; 
+img {
+  border : 3px solid #000000;
 }
 
 input[type=text]{
@@ -111,6 +106,10 @@ export default {
         this.loading = false; 
       }
     }
+  },
+  mounted() {
+    this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
   }
 }
+
 </script>

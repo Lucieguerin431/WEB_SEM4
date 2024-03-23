@@ -8,43 +8,26 @@ defineProps({
 </script>
 
 <template>
-  
-  <div class="photo-gallery">
-    <div v-for="(photo, index) in photos" :key="index" class="photo-card">
-      <img :src="photo.src.medium" :alt="photo.photographer">
-    </div>
+  <div class="photo-card" @click="viewPhoto">
+    <img :src="photo.src.medium" :alt="photo.photographer">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PhotoGallery',
-  data() {
-    return {
-      photos: []
-    };
-  },
-  mounted() {
-    // Appel à l'API de Pexels pour récupérer les photos de film
-    this.fetchFilmPhotos();
+  props: {
+    photo: Object // Propriété pour passer la photo à partir du composant parent
   },
   methods: {
-    async fetchFilmPhotos() {
-      try {
-        const response = await fetch('https://api.pexels.com/v1/search?query=35mm&per_page=80', {
-          headers: {
-            'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
-          }
-        });
-        const data = await response.json();
-        this.photos = data.photos;
-      } catch (error) {
-        console.error('Erreur lors de la récupération des photos de 35mm:', error);
-      }
+    viewPhoto() {
+      // Émettre un événement pour informer le composant parent qu'une photo a été sélectionnée
+      this.$emit('photo-selected', this.photo);
     }
   }
 }
 </script>
+
+
 
 <style scoped>
 h1 {
@@ -55,7 +38,7 @@ h1 {
 }
 
 img {
-     border : 3px solid #000000;
+  border : 3px solid #000000;
 }
 
 h3 {
