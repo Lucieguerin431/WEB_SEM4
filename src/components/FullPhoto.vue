@@ -1,20 +1,50 @@
 <template>
-    <div>
-      <img :src="photo.src.large" :alt="photo.photographer">
-      <!-- D'autres éléments ou informations sur la photo peuvent être ajoutés ici -->
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      photo: Object // Propriété pour recevoir la photo à afficher en grand
+  <div class="photo-container">
+    <img :src="photoUrl" :alt="photo ? photo.photographer: 'Photo'">
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'FullPhoto',
+  props: {
+    id: String
+  },
+  data() {
+    return {
+      photo: null,
+    };
+  },
+  computed: {
+    photoUrl() {
+      return this.photo ? this.photo.src.large : '';
     },
-    // Vous pouvez ajouter d'autres fonctionnalités ici selon vos besoins
-  }
-  </script>
-  
-  <style scoped>
-  /* Styles pour afficher la photo en grand */
-  </style>
-  
+  },
+  async mounted() {
+    try {
+      const response = await fetch(`https://api.pexels.com/v1/photos/${this.id}`, {
+        headers: {
+          'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
+        }
+      });
+      const data = await response.json();
+      this.photo = data;
+    } catch (error) {
+      console.error('Erreur lors du chargement de la photo:', error);
+    }
+  },
+};
+</script>
+
+<style scoped>
+.photo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.photo-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+</style>

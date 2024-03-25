@@ -1,68 +1,40 @@
-<script setup>
-defineProps({
-  
-})
-</script>
-
-
 <template>
-<div>
-  <header>
-    <h1>EPICFOCUS</h1>
-    <div class="search">
-      <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Search for vintage images">
-    </div>
-  </header>
-  <body>
-    <div>
-    <select v-model="orientation" @change="searchPhotos">
-    <option value="">Toutes les orientations</option>
-    <option value="landscape">Landscape</option>
-    <option value="portrait">Portrait</option>
-    <option value="square">Square</option>
-</select>
-<select v-model="size" @change="searchPhotos">
-    <option value="">Toutes les tailles</option>
-    <option value="small">Small</option>
-    <option value="medium">Medium</option>
-    <option value="large">Large</option>
-</select>
-<input type="text" v-model="color" value="00BCD4" @input="searchPhotos" placeholder="Code hexadécimal...">
-</div>
-    <div class="photo-gallery">
-      <div v-if="loading" class="loading">Chargement en cours...</div>
-      <div v-else>
-        <div v-for="(photo, index) in photos" :key="index" class="photo-card">
-          <img :src="photo.src.medium" :alt="photo.photographer">
+  <div>
+    <header>
+      <h1>EPICFOCUS</h1>
+      <div class="search">
+        <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Search for vintage images">
+      </div>
+    </header>
+    <body>
+      <div>
+        <select v-model="orientation" @change="searchPhotos">
+          <option value="">Toutes les orientations</option>
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+          <option value="square">Square</option>
+        </select>
+        <select v-model="size" @change="searchPhotos">
+          <option value="">Toutes les tailles</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+        <div class="color-box">
+          <div v-for="(color, index) in colors" :key="index" class="color-option" :style="{ backgroundColor: color.value }" @click="setColor(color.value)"></div>
         </div>
       </div>
-    </div>
-  </body>
+      <div class="photo-gallery">
+        <div v-if="loading" class="loading">Chargement en cours...</div>
+        <div v-else>
+          <div v-for="(photo, index) in photos" :key="index" class="photo-card" @click="viewPhoto(photo.id)">
+              <img :src="photo.src.medium" :alt="photo.photographer" >
+          </div>
+        </div>
+      </div>
+    </body>
   </div>
 </template>
-
-
-<style scoped>
-header{
-    background-color:#fff6f1;
-}
-
-body{
-    background-color:#fff6f1;
-}
-
-img {
-  border : 3px solid #000000;
-}
-
-input[type=text]{
-  width: 70%;
-  height: 3rem;
-  border: 2px solid #000000;
-  background-color: #E3622E;
-}
-
-</style>
 
 <script>
 export default {
@@ -74,8 +46,15 @@ export default {
       searchKeyword: '',
       orientation: '',
       size: '',
-      color: '',
-      loading: false 
+      loading: false,
+      selectedColor: '',
+      colors: [
+        { name: 'Rouge', value: '#FF0000' },
+        { name: 'Vert', value: '#00FF00' },
+        { name: 'Bleu', value: '#0000FF' },
+        { name: 'Orange', value: '#FFA500' },
+        { name: 'Jaune', value: '#FFFF00' }
+      ]
     };
   },
   
@@ -90,8 +69,8 @@ export default {
         if (this.size) {
           apiUrl += `&size=${this.size}`;
         }
-        if (this.color) {
-          apiUrl += `&color=${this.color}`;
+        if (this.selectedColor) {
+          apiUrl += `&color=${this.selectedColor}`;
         }
         const response = await fetch(apiUrl, {
           headers: {
@@ -105,11 +84,56 @@ export default {
       } finally {
         this.loading = false; 
       }
-    }
+    },
+    setColor(color) {
+      this.selectedColor = color;
+      this.searchPhotos();
+    },
+    viewPhoto(photoId) {
+      // Naviguer vers une nouvelle page avec l'ID de la photo
+      this.$router.push({ name: 'FullPhoto', params: { id: photoId } });}
   },
+  
+  
+
   mounted() {
     this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
   }
+
+}
+</script>
+
+<style scoped>
+header{
+    background-color:#fff6f1;
 }
 
-</script>
+body{
+    background-color:#fff6f1;
+}
+
+img {
+  border : 3px solid #000000;
+  cursor: pointer;
+}
+
+input[type=text]{
+  width: 70%;
+  height: 3rem;
+  border: 2px solid #000000;
+  background-color: #E3622E;
+}
+
+.color-box {
+  display: flex;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+</style>
+
