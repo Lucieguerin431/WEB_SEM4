@@ -7,23 +7,7 @@
       </div>
     </header>
     <body>
-      <div>
-        <select v-model="orientation" @change="searchPhotos">
-          <option value="">Toutes les orientations</option>
-          <option value="landscape">Landscape</option>
-          <option value="portrait">Portrait</option>
-          <option value="square">Square</option>
-        </select>
-        <select v-model="size" @change="searchPhotos">
-          <option value="">Toutes les tailles</option>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-        <div class="color-box">
-          <div v-for="(color, index) in colors" :key="index" class="color-option" :style="{ backgroundColor: color.value }" @click="setColor(color.value)"></div>
-        </div>
-      </div>
+      <Filters @filter-changed="searchPhotos" />
       <div class="photo-gallery">
         <div v-if="loading" class="loading">Chargement en cours...</div>
         <div v-else>
@@ -37,40 +21,34 @@
 </template>
 
 <script>
+import Filters from './Filters.vue';
 export default {
   name: 'Search',
+  components: {
+    Filters
+  },
   props: ['photos'],
   data() {
     return {
       photos: [],
       searchKeyword: '',
-      orientation: '',
-      size: '',
       loading: false,
-      selectedColor: '',
-      colors: [
-        { name: 'Rouge', value: '#FF0000' },
-        { name: 'Vert', value: '#00FF00' },
-        { name: 'Bleu', value: '#0000FF' },
-        { name: 'Orange', value: '#FFA500' },
-        { name: 'Jaune', value: '#FFFF00' }
-      ]
     };
   },
   
   methods: {
-    async searchPhotos() {
+    async searchPhotos(filters) {
       try {
         this.loading = true; 
         let apiUrl = `https://api.pexels.com/v1/search?query=35mm ${this.searchKeyword}&per_page=30`;
-        if (this.orientation) {
-          apiUrl += `&orientation=${this.orientation}`;
+        if (filters.orientation) {
+          apiUrl += `&orientation=${filters.orientation}`;
         }
-        if (this.size) {
-          apiUrl += `&size=${this.size}`;
+        if (filters.size) {
+          apiUrl += `&size=${filters.size}`;
         }
-        if (this.selectedColor) {
-          apiUrl += `&color=${this.selectedColor}`;
+        if (filters.selectedColor) {
+          apiUrl += `&color=${filters.selectedColor}`;
         }
         const response = await fetch(apiUrl, {
           headers: {
@@ -85,16 +63,11 @@ export default {
         this.loading = false; 
       }
     },
-    setColor(color) {
-      this.selectedColor = color;
-      this.searchPhotos();
-    },
     viewPhoto(photoId) {
       // Naviguer vers une nouvelle page avec l'ID de la photo
-      this.$router.push({ name: 'FullPhoto', params: { id: photoId } });}
+      this.$router.push({ name: 'FullPhoto', params: { id: photoId } });
+    }
   },
-  
-  
 
   mounted() {
     this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
