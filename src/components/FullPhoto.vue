@@ -2,6 +2,15 @@
   <div class="photo-container">
     <img :src="photoUrl" :alt="photo ? photo.photographer: 'Photo'">
   </div>
+  <div class="photo-info">
+    <p>Width: {{ photo ? photo.width : '-' }}</p>
+    <p>Height: {{ photo ? photo.height : '-' }}</p>
+    <p>Photographer: 
+        <a :href="photo ? photo.photographer_url : '#'" target="_blank">{{ photo ? photo.photographer : '-' }}</a>
+    </p>
+    <p>Average Color: {{ photo ? photo.avg_color : '-' }}</p>
+    <p>Alternative Description: {{ photo ? photo.alt_description : '-' }}</p>
+  </div>
 </template>
 
 <script>
@@ -46,5 +55,8 @@ export default {
 .photo-container img {
   max-width: 100%;
   max-height: 100%;
+}
+.photo-info {
+  margin-top: 20px;
 }
 </style>

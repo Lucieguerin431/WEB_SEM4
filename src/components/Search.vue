@@ -36,6 +36,10 @@ export default {
     };
   },
   
+  mounted() {
+    this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
+  },
+
   methods: {
     async searchPhotos(filters) {
       try {
@@ -67,11 +71,8 @@ export default {
       // Naviguer vers une nouvelle page avec l'ID de la photo
       this.$router.push({ name: 'FullPhoto', params: { id: photoId } });
     }
-  },
-
-  mounted() {
-    this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
   }
+
 
 }
 </script>
