@@ -32,6 +32,7 @@ header {
 
 body {
   background-color: #fff6f1;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 

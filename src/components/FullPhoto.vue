@@ -1,15 +1,24 @@
 <template>
   <div class="photo-container">
-    <img :src="photoUrl" :alt="photo ? photo.photographer: 'Photo'">
+    <img :src="photoUrl" :alt="photo ? photo.photographer : 'Photo'">
   </div>
   <div class="photo-info">
-    <p>Width: {{ photo ? photo.width : '-' }}</p>
-    <p>Height: {{ photo ? photo.height : '-' }}</p>
-    <p>Photographer: 
-        <a :href="photo ? photo.photographer_url : '#'" target="_blank">{{ photo ? photo.photographer : '-' }}</a>
-    </p>
-    <p>Average Color: {{ photo ? photo.avg_color : '-' }}</p>
-    <p>Alternative Description: {{ photo ? photo.alt_description : '-' }}</p>
+    <h2>Photo details</h2>
+    <table>
+      <tr>
+        <th>Photographer</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Average Color</th>
+      </tr>
+      <tr>
+        <td><a :href="photo ? photo.photographer_url : '#'" target="_blank">{{ photo ? photo.photographer : '-' }}</a></td>
+        <td>{{ photo ? photo.width : '-' }}</td>
+        <td>{{ photo ? photo.height : '-' }}</td>
+        <td><span class="color-sample" :style="{ backgroundColor: photo ? photo.avg_color : '#ffffff' }"></span></td>
+
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -50,13 +59,40 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
+
 .photo-container img {
   max-width: 100%;
   max-height: 100%;
+  height: auto;
 }
+
 .photo-info {
-  margin-top: 20px;
+  margin-top: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+  border: 2px solid #000000;
+}
+td {
+  text-align: center;
+}
+th {
+  font-weight: bold;
+}
+
+.color-sample {
+  display: inline-block;
+  width: 6rem;
+  height: 1rem;
+  border: 1px solid #000000;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 </style>
