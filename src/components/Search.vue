@@ -11,7 +11,7 @@
       <div class="photo-gallery">
         <div v-if="loading" class="loading">Chargement en cours...</div>
         <div v-else>
-          <div v-for="(photo, index) in photos" :key="index" class="photo-card" @click="viewPhoto(photo.id)">
+          <div v-for="(photo, index) in sortedPhotos" :key="index" class="photo-card" @click="viewPhoto(photo.id)">
               <img :src="photo.src.medium" :alt="photo.photographer" @mouseover="showPhotographer(photo)" @mouseleave="hidePhotographer(photo)" @mousemove="updatePosition($event, photo)">
               <div class="photographer-name" v-if="photo.showPhotographer" :style="{ top: photo.mouseY + 'px', left: photo.mouseX + 'px'}">{{ photo.photographer }}</div>
           </div>
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       photos: [],
+      sortedPhotos: [],
       searchKeyword: '',
       loading: false,
     };
@@ -62,6 +63,7 @@ export default {
         });
         const data = await response.json();
         this.photos = data.photos.map(photo => ({ ...photo, showPhotographer: false, mouseX: 0, mouseY: 0 }));
+        this.sortedPhotos = [...this.photos].sort((a, b) => a.photographer.localeCompare(b.photographer));
       } catch (error) {
         console.error('Erreur lors de la recherche des photos:', error);
       } finally {
@@ -80,8 +82,8 @@ export default {
     },
     updatePosition(event, photo) {
     const rect = event.target.getBoundingClientRect();
-    const mouseX = event.clientX; 
-    const mouseY = event.clientY; 
+    const mouseX = event.clientX + 10; //+ 10 pour que le texte ne soit pas cacher par la souris
+    const mouseY = event.clientY + 10; 
     photo.mouseX = mouseX + window.scrollX; 
     photo.mouseY = mouseY + window.scrollY; 
   }
