@@ -13,7 +13,7 @@
         <option value="large">Large</option>
       </select>
       <div class="color-box">
-        <div v-for="(color, index) in colors" :key="index" class="color-option" :style="{ backgroundColor: color.value }" @click="setColor(color.value)"></div>
+        <div v-for="(color, index) in colors" :key="index" class="color-option" :style="{ backgroundColor: color.value, border: color.value === selectedColor ? '2px solid black' : 'none' }" @click="setColor(color.value)"></div>
       </div>
     </div>
   </template>
@@ -35,6 +35,17 @@
         ]
       };
     },
+    mounted() {
+      if (sessionStorage.getItem("searchOrientation")) {
+        this.orientation = sessionStorage.getItem("searchOrientation");
+      }
+      if (sessionStorage.getItem("searchSize")) {
+        this.size = sessionStorage.getItem("searchSize");
+      }
+      if (sessionStorage.getItem("searchColor")) {
+        this.selectedColor = sessionStorage.getItem("searchColor");
+      }
+    },
     methods: {
       filterChanged() {
         this.$emit('filter-changed', {
@@ -42,6 +53,9 @@
           size: this.size,
           selectedColor: this.selectedColor
         });
+        sessionStorage.setItem("searchOrientation", this.orientation);
+        sessionStorage.setItem("searchSize", this.size);
+        sessionStorage.setItem("searchColor", this.selectedColor);
       },
       setColor(color) {
         this.selectedColor = color;

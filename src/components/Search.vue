@@ -3,14 +3,14 @@
     <header>
       <h1>EPICFOCUS</h1>
       <div class="search">
-        <input type="text" v-model="searchKeyword" @input="searchPhotos" placeholder="Search for vintage images">
+        <input type="text" v-model="searchKeyword" @input="handleSearch" placeholder="Search for vintage images">
       </div>
     </header>
     <body>
       <Filters @filter-changed="searchPhotos" />
       <div class="photo-gallery">
-        <div v-if="loading" class="loading">Chargement en cours...</div>
-        <div v-else>
+        <div v-if="loading" class="loading">Loading...</div>
+        <div v-else class="flex-container">
           <div v-for="(photo, index) in sortedPhotos" :key="index" class="photo-card" @click="viewPhoto(photo.id)">
               <img :src="photo.src.medium" :alt="photo.photographer" @mouseover="showPhotographer(photo)" @mouseleave="hidePhotographer(photo)" @mousemove="updatePosition($event, photo)">
               <div class="photographer-name" v-if="photo.showPhotographer" :style="{ top: photo.mouseY + 'px', left: photo.mouseX + 'px'}">{{ photo.photographer }}</div>
@@ -19,6 +19,7 @@
       </div>
     </body>
   </div>
+  
 </template>
 
 <script>
@@ -39,21 +40,38 @@ export default {
   },
   
   mounted() {
-    this.searchPhotos(); // Appeler la fonction searchPhotos() lorsque le composant est monté pour afficher les photos par défaut à l'ouverture du site
+    if (sessionStorage.getItem("searchKeyword")) {
+      this.searchKeyword = sessionStorage.getItem("searchKeyword");
+    } 
+
+     const filters = {
+       orientation: sessionStorage.getItem("searchOrientation"),
+       size: sessionStorage.getItem("searchSize"),
+       selectedColor: sessionStorage.getItem("searchColor")
+     };   
+
+    this.searchPhotos(filters);
   },
 
   methods: {
+    async handleSearch(){
+console.log(this.searchKeyword);
+      sessionStorage.setItem("searchKeyword", this.searchKeyword);
+
+      await this.searchPhotos();
+
+    },
     async searchPhotos(filters) {
       try {
         this.loading = true; 
-        let apiUrl = `https://api.pexels.com/v1/search?query=35mm ${this.searchKeyword}&per_page=30`;
-        if (filters.orientation) {
+        let apiUrl = `https://api.pexels.com/v1/search?query=35mm ${this.searchKeyword}&per_page=80`;
+        if (filters?.orientation) {
           apiUrl += `&orientation=${filters.orientation}`;
         }
-        if (filters.size) {
+        if (filters?.size) {
           apiUrl += `&size=${filters.size}`;
         }
-        if (filters.selectedColor) {
+        if (filters?.selectedColor) {
           apiUrl += `&color=${filters.selectedColor.replace('#', '')}`;
         }
         const response = await fetch(apiUrl, {
@@ -110,7 +128,9 @@ input[type=text]{
   height: 3rem;
   border: 2px solid #000000;
   background-color: #E3622E;
+  box-shadow: 5px 10px #000000;
 }
+
 
 .color-box {
   display: flex;
@@ -124,14 +144,12 @@ input[type=text]{
 }
 
 .photographer-name {
-  position: absolute;
+  position:absolute;
   left: 50%;
   background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #000000;
   padding: 5px;
-  border-radius: 5px;
   font-size: 12px;
-  white-space: nowrap;
-  z-index: 1;
   display: none;
 }
 
@@ -139,5 +157,15 @@ input[type=text]{
   display: block;
 }
 
+.photo-card {
+  width:min-content;
+  padding: 5px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 </style>
