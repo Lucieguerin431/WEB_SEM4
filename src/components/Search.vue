@@ -52,7 +52,7 @@ export default {
           apiUrl += `&size=${filters.size}`;
         }
         if (filters.selectedColor) {
-          apiUrl += `&color=${filters.selectedColor}`;
+          apiUrl += `&color=${filters.selectedColor.replace('#', '')}`;
         }
         const response = await fetch(apiUrl, {
           headers: {
