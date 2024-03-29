@@ -36,6 +36,7 @@ export default {
       sortedPhotos: [],
       searchKeyword: '',
       loading: false,
+      savedScrollPosition: 0
     };
   },
   
@@ -51,6 +52,10 @@ export default {
      };   
 
     this.searchPhotos(filters);
+    // Restaurer la position de défilement lorsque le composant est monté
+    this.$nextTick(() => {
+      window.scrollTo(0, this.savedScrollPosition);
+    });
   },
 
   methods: {
@@ -104,6 +109,11 @@ console.log(this.searchKeyword);
     const mouseY = event.clientY + 10; 
     photo.mouseX = mouseX + window.scrollX; 
     photo.mouseY = mouseY + window.scrollY; 
+  },
+  beforeRouteLeave(to, from, next) {
+    // Enregistrer la position de défilement avant de quitter le composant
+    this.savedScrollPosition = window.scrollY;
+    next();
   }
   }
 }

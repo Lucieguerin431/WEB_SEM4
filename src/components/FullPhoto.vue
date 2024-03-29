@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <router-link to="/" class="back-arrow">&#8592;</router-link>
+  </div>
   <div class="photo-container">
     <img :src="photoUrl" :alt="photo ? photo.photographer : 'Photo'">
   </div>
@@ -51,6 +54,11 @@ export default {
       console.error('Erreur lors du chargement de la photo:', error);
     }
   },
+  beforeRouteLeave(to, from, next) {
+    // Scroll jusqu'en haut de la page avant de quitter la route
+    window.scrollTo(0, 0);
+    next();
+  }
 };
 </script>
 
@@ -94,5 +102,17 @@ th {
   border: 1px solid #000000;
   vertical-align: middle;
   margin-right: 5px;
+}
+
+img {
+  border: 3px solid black;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  text-decoration: none;
 }
 </style>
