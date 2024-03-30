@@ -122,6 +122,7 @@ console.log(this.searchKeyword);
 <style scoped>
 header{
     background-color:#fff6f1;
+    text-align: center;
 }
 
 body{
@@ -138,20 +139,15 @@ input[type=text]{
   height: 3rem;
   border: 2px solid #000000;
   background-color: #E3622E;
-  box-shadow: 5px 10px #000000;
+  box-shadow: 7px 7px #000000;
 }
 
-
-.color-box {
+.search {
   display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.color-option {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  cursor: pointer;
-}
 
 .photographer-name {
   position:absolute;

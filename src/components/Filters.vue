@@ -1,20 +1,23 @@
 <template>
-    <div>
+    <div class="filters">
       <select v-model="orientation" @change="filterChanged">
-        <option value="">Toutes les orientations</option>
+        <option value="">All orientations</option>
         <option value="landscape">Landscape</option>
         <option value="portrait">Portrait</option>
         <option value="square">Square</option>
       </select>
       <select v-model="size" @change="filterChanged">
-        <option value="">Toutes les tailles</option>
+        <option value="">All sizes</option>
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
       </select>
-      <div class="color-box">
-        <div v-for="(color, index) in colors" :key="index" class="color-option" :style="{ backgroundColor: color.value, border: color.value === selectedColor ? '2px solid black' : 'none' }" @click="setColor(color.value)"></div>
-      </div>
+      <select v-model="selectedColor" @change="filterChanged">
+        <option value="">All colors</option>
+        <option class="color-option" v-for="(color, index) in colors" :key="index" :value="color.value" :style="{ backgroundColor: color.value }">
+          {{ color.name }}
+        </option>
+      </select>
     </div>
   </template>
   
@@ -27,11 +30,11 @@
         size: '',
         selectedColor: '',
         colors: [
-          { name: 'Rouge', value: '#FF0000' },
-          { name: 'Vert', value: '#00FF00' },
-          { name: 'Bleu', value: '#0000FF' },
+          { name: 'Red', value: '#FF0000' },
+          { name: 'Green', value: '#00FF00' },
+          { name: 'Blue', value: '#0000FF' },
           { name: 'Orange', value: '#FFA500' },
-          { name: 'Jaune', value: '#FFFF00' }
+          { name: 'Yellow', value: '#FFFF00' }
         ]
       };
     },
@@ -71,10 +74,16 @@
   }
   
   .color-option {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px; 
+  padding: 20px;
   }
   </style>
   

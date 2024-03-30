@@ -5,7 +5,7 @@ import Search from './components/Search.vue';
 
 <template>
   <header>
-    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
+    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
     <!-- <Search :photos="photos"/> -->
   </header>
   <body>
@@ -33,6 +33,7 @@ header {
 body {
   background-color: #fff6f1;
   font-family: Arial, Helvetica, sans-serif;
+  border: 2px black solid;
 }
 
 
