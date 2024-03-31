@@ -1,7 +1,6 @@
 <template>
   <div>
     <header>
-      <h1>EPICFOCUS</h1>
       <div class="search">
         <input type="text" v-model="searchKeyword" @input="handleSearch" placeholder="Search for vintage images">
       </div>
@@ -60,10 +59,10 @@ export default {
 
   methods: {
     async handleSearch(){
-console.log(this.searchKeyword);
-      sessionStorage.setItem("searchKeyword", this.searchKeyword);
+    console.log(this.searchKeyword);
+    sessionStorage.setItem("searchKeyword", this.searchKeyword);
 
-      await this.searchPhotos();
+    await this.searchPhotos();
 
     },
     async searchPhotos(filters) {
@@ -173,5 +172,6 @@ input[type=text]{
   flex-wrap: wrap;
   justify-content: center;
 }
+
 
 </style>

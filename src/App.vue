@@ -4,33 +4,13 @@ import Search from './components/Search.vue';
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    <!-- <Search :photos="photos"/> -->
-  </header>
-  <body>
-    <div class="wrapper">
-    </div>
-    <div>
+  <div class="wrapper">
     <router-view></router-view>
   </div>
-  </body>
 </template>
 
 <style scoped>
-header {
-  background: #fff6f1;
-  text-align: center;
-  color: black;    
-  font-size: 30px;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-body {
+.wrapper {
   background-color: #fff6f1;
   font-family: Arial, Helvetica, sans-serif;
   border: 2px black solid;

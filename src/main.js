@@ -4,11 +4,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router' // Importez les fonctions de cette manière
 
-import Search from './components/Search.vue'
+import HomePage from './pages/HomePage.vue'
 import FullPhoto from './components/FullPhoto.vue'
 
 const routes = [
-    { path: '/', component: Search },
+    { path: '/', component: HomePage },
     { path: '/photo/:id', name:'FullPhoto', component: FullPhoto, props:true }
 ]
 

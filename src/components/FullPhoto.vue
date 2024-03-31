@@ -19,7 +19,6 @@
         <td>{{ photo ? photo.width : '-' }}</td>
         <td>{{ photo ? photo.height : '-' }}</td>
         <td><span class="color-sample" :style="{ backgroundColor: photo ? photo.avg_color : '#ffffff' }"></span></td>
-
       </tr>
     </table>
   </div>
