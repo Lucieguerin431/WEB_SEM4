@@ -94,7 +94,7 @@ export default {
     },
     viewPhoto(photoId) {
       // Naviguer vers une nouvelle page avec l'ID de la photo
-      this.$router.push({ name: 'FullPhoto', params: { id: photoId } });
+      this.$router.push({ name: 'PhotoPage', params: { id: photoId } });
     },
     showPhotographer(photo) {
       photo.showPhotographer = true;
@@ -109,11 +109,6 @@ export default {
     photo.mouseX = mouseX + window.scrollX; 
     photo.mouseY = mouseY + window.scrollY; 
   },
-  beforeRouteLeave(to, from, next) {
-    // Enregistrer la position de défilement avant de quitter le composant
-    this.savedScrollPosition = window.scrollY;
-    next();
-  }
   }
 }
 </script>
@@ -173,5 +168,10 @@ input[type=text]{
   justify-content: center;
 }
 
+.loading {
+  text-align: center;
+  font-size: 6rem;
+  margin-top: 40px;
+}
 
 </style>

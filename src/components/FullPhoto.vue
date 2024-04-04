@@ -37,6 +37,7 @@ export default {
   },
   computed: {
     photoUrl() {
+      //ce qui recup et affiche la photo
       return this.photo ? this.photo.src.large : '';
     },
   },
@@ -53,11 +54,6 @@ export default {
       console.error('Erreur lors du chargement de la photo:', error);
     }
   },
-  beforeRouteLeave(to, from, next) {
-    // Scroll jusqu'en haut de la page avant de quitter la route
-    window.scrollTo(0, 0);
-    next();
-  }
 };
 </script>
 

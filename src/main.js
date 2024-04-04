@@ -5,11 +5,11 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router' // Importez les fonctions de cette manière
 
 import HomePage from './pages/HomePage.vue'
-import FullPhoto from './components/FullPhoto.vue'
+import PhotoPage from './pages/PhotoPage.vue'
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/photo/:id', name:'FullPhoto', component: FullPhoto, props:true }
+    { path: '/photo/:id', name:'PhotoPage', component: PhotoPage, props:true }
 ]
 
 // Utilisez createRouter pour créer le routeur

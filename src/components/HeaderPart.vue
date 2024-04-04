@@ -22,5 +22,6 @@ h1 {
   font-weight: 400;
   font-style: normal;
   font-size: 70px;
+  
 }
 </style>
