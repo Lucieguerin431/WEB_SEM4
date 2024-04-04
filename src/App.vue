@@ -1,5 +1,4 @@
 <script setup>
-import PhotoCard from './components/PhotoCard.vue'
 import Search from './components/Search.vue';
 </script>
 
