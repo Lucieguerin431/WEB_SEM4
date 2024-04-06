@@ -1,5 +1,4 @@
 <script setup>
-import Search from './components/Search.vue';
 </script>
 
 <template>
@@ -14,18 +13,14 @@ import Search from './components/Search.vue';
   font-family: Arial, Helvetica, sans-serif;
   border: 2px black solid;
 }
-
-
 </style>
 
 <script>
-import Search from './components/Search.vue';
-
 export default {
   name: 'App',
   data() {
     return {
-      photos: [] 
+      photos: []
     };
   },
 }

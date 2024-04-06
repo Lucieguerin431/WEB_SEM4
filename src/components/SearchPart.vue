@@ -16,7 +16,7 @@ import SearchBar from './SearchBar.vue';
 import PhotoGallery from './PhotoGallery.vue';
 
 export default {
-  name: 'Search',
+  name: 'SearchPart',
   components: {
     Filters,
     SearchBar,

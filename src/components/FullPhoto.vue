@@ -15,7 +15,8 @@
         <th>Average Color</th>
       </tr>
       <tr>
-        <td><a :href="photo ? photo.photographer_url : '#'" target="_blank">{{ photo ? photo.photographer : '-' }}</a></td>
+        <td><a :href="photo ? photo.photographer_url : '#'" target="_blank">{{ photo ? photo.photographer : '-' }}</a>
+        </td>
         <td>{{ photo ? photo.width : '-' }}</td>
         <td>{{ photo ? photo.height : '-' }}</td>
         <td><span class="color-sample" :style="{ backgroundColor: photo ? photo.avg_color : '#ffffff' }"></span></td>
@@ -72,20 +73,27 @@ export default {
 
 .photo-info {
   margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
 }
 
 table {
-  width: 100%;
+  width: 80%;
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   border: 2px solid #000000;
 }
+
 td {
   text-align: center;
 }
+
 th {
   font-weight: bold;
 }
@@ -107,7 +115,34 @@ img {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 24px;
+  font-size: 60px;
+  padding: 10px;
   text-decoration: none;
 }
+h2{
+  width: 100%;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .photo-container {
+    display: block;
+  }
+  .back-arrow {
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+  }
+  img{
+    width: 80%;
+  }
+  .photo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  th,td {
+  padding: 4px;
+  }
+}
+
 </style>

@@ -9,33 +9,34 @@
 </template>
 <script>
 export default {
-	name: "FooterPart",	
+	name: "FooterPart",
 }
 </script>
 <style scoped>
-footer{
-	background: #fff6f1; 
+footer {
+	background: #fff6f1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	padding: 3% 0;	
+	padding: 3% 0;
 	margin-top: 5%;
 	border-top: 2px solid #000000;
 
 }
-ul{
+
+ul {
 	list-style: none;
 }
 
-.footer-elem{
+.footer-elem {
 	color: #000000;
 	opacity: 0.33;
 }
-.link:hover{
-	color: #E3622E;
-	opacity: 0.99	;
-}
 
+.link:hover {
+	color: #E3622E;
+	opacity: 0.99;
+}
 </style>
