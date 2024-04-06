@@ -43,7 +43,7 @@ export default {
        selectedColor: sessionStorage.getItem("searchColor")
      };   
 
-    this.searchPhotos(filters);
+    this.searchPhotos();
   },
   methods: {
     async handleSearch(value){
