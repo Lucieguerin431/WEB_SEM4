@@ -36,14 +36,25 @@ export default {
     if (sessionStorage.getItem("searchKeyword")) {
       this.searchKeyword = sessionStorage.getItem("searchKeyword");
     } 
+    
+    let filters = {};
 
-     const filters = {
-       orientation: sessionStorage.getItem("searchOrientation"),
-       size: sessionStorage.getItem("searchSize"),
-       selectedColor: sessionStorage.getItem("searchColor")
-     };   
+    if (sessionStorage.getItem("searchOrientation")) {
+        filters.orientation = sessionStorage.getItem("searchOrientation");
+    }
+    if (sessionStorage.getItem("searchSize")) {
+        filters.size = sessionStorage.getItem("searchSize");
+    }
+    if (sessionStorage.getItem("searchColor")) {
+        filters.selectedColor = sessionStorage.getItem("searchColor");
+    }
 
-    this.searchPhotos();
+    if (Object.keys(filters).length > 0) {
+        this.searchPhotos(filters);
+    }
+    else {
+        this.searchPhotos();
+    }
   },
   methods: {
     async handleSearch(value){
@@ -51,7 +62,6 @@ export default {
       sessionStorage.setItem("searchKeyword", this.searchKeyword);
 
       await this.searchPhotos();
-
     },
     async searchPhotos(filters) {
       try {
@@ -59,18 +69,29 @@ export default {
         let apiUrl = `https://api.pexels.com/v1/search?query=35mm ${this.searchKeyword}&per_page=80`;
         
         if (filters) {
-      apiUrl += `&orientation=${filters.orientation}&size=${filters.size}&color=${filters.selectedColor.replace('#','')}`;
-      }
+          if(filters?.orientation){
+            apiUrl += `&orientation=${filters?.orientation}`;
+          }
+          if(filters?.size){
+            apiUrl += `&size=${filters?.size}`;
+          }
+          if(filters?.selectedColor){
+            apiUrl += `&color=${filters?.selectedColor.replace('#','')}`;
+          }
+          console.log(apiUrl);
+        }
+        
         const response = await fetch(apiUrl, {
           headers: {
             'Authorization': 'udjXtzs8O2CXWR2aBuB4yqbHj9RF7zXaAoGAxTXOiAD6U9DsOmhw6USB'
           }
         });
+        
         const data = await response.json();
         this.photos = data.photos.map(photo => ({ ...photo, showPhotographer: false, mouseX: 0, mouseY: 0 }));
         this.sortedPhotos = [...this.photos].sort((a, b) => a.photographer.localeCompare(b.photographer));
       } catch (error) {
-        console.error('Erreur lors de la recherche des photos:', error);
+        console.error('Error searching for photos:', error);
       } finally {
         this.loading = false; 
       }
@@ -88,5 +109,4 @@ header{
 body{
     background-color:#fff6f1;
 }
-
 </style>

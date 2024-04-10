@@ -18,7 +18,6 @@ export default {
   props: ['loading', 'sortedPhotos'],
   methods: {
     viewPhoto(photoId) {
-      // Naviguer vers une nouvelle page avec l'ID de la photo
       this.$router.push({ name: 'PhotoPage', params: { id: photoId } });
     },
     showPhotographer(photo) {
@@ -29,7 +28,7 @@ export default {
     },
     updatePosition(event, photo) {
       const rect = event.target.getBoundingClientRect();
-      const mouseX = event.clientX + 10; //+ 10 pour que le texte ne soit pas cacher par la souris
+      const mouseX = event.clientX + 10; 
       const mouseY = event.clientY + 10;
       photo.mouseX = mouseX + window.scrollX;
       photo.mouseY = mouseY + window.scrollY;

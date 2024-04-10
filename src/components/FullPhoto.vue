@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     photoUrl() {
-      //ce qui recup et affiche la photo
       return this.photo ? this.photo.src.large : '';
     },
   },
@@ -52,7 +51,7 @@ export default {
       const data = await response.json();
       this.photo = data;
     } catch (error) {
-      console.error('Erreur lors du chargement de la photo:', error);
+      console.error('Error loading photo:', error);
     }
   },
 };
@@ -119,10 +118,12 @@ img {
   padding: 10px;
   text-decoration: none;
 }
+
 h2{
   width: 100%;
   text-align: center;
 }
+
 @media (max-width: 768px) {
   .photo-container {
     display: block;
@@ -144,5 +145,4 @@ h2{
   padding: 4px;
   }
 }
-
 </style>
