@@ -78,7 +78,6 @@ export default {
           if(filters?.selectedColor){
             apiUrl += `&color=${filters?.selectedColor.replace('#','')}`;
           }
-          console.log(apiUrl);
         }
         
         const response = await fetch(apiUrl, {
