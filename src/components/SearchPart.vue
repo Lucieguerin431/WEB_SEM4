@@ -88,10 +88,13 @@ export default {
         });
         
         const data = await response.json();
+
         this.photos = data.photos.map(photo => ({ ...photo, showPhotographer: false, mouseX: 0, mouseY: 0 }));
+
         this.sortedPhotos = [...this.photos].sort((a, b) => a.photographer.localeCompare(b.photographer));
+
       } catch (error) {
-        console.error('Error searching for photos:', error);
+        console.error('Error loading photos:', error);
       } finally {
         this.loading = false; 
       }

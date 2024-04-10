@@ -47,5 +47,4 @@ input[type=text] {
         height: 2rem;
     }
 }
-
 </style>
